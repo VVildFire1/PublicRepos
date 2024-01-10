@@ -1,1 +1,0 @@
-![[IP layer 3 Router.png]]![[Class.jpg]]
