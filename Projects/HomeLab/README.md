@@ -22,6 +22,7 @@ Other hardware options considered:
 
 For software, I plan to run the following:
 
+- Proxmox VE - Virtual Environment Platform
 - PFsense as my main router software.
 - Jellyfin for media serving.
 - Audiobookshelf for organizing and listening to audiobooks.
