@@ -31,7 +31,6 @@ For software, I plan to run the following:
 - NAS setup using FreeNAS for storage solutions.
 - Email server for personal mail hosting.
 - Webserver for hosting websites.
-- Lansweeper for network inventory.
 - Jumpbox as a secure entry point into a remote network.
 - Possibly a local AI for various automation and learning purposes.
 - LittleLink for creating a simple, self-hosted microsite with links to my content.
