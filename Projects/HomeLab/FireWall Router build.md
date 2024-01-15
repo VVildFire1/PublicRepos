@@ -54,4 +54,4 @@ you will see and address change it to what you need save the file and reboot I h
 
 <img src="/Projects/images/proxmoxhome.png">
 
-![][proxmoxhome.png]
+![](proxmoxhome.png)
