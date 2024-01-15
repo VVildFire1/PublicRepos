@@ -13,7 +13,7 @@ I'm a technology enthusiast with a passion for learning and building. My interes
 
 ## Current Work
 
-- **ReBuilding my Homelab**: Documenting the process of setting up my home lab environment for various projects and experiments.
+- **ReBuilding my Homelab**: Documenting the process of setting up my home lab environment for various projects and experiments.  (delayed waiting on hardware as of 1-10-24)
 - Adding to my Cyber Playbook
 
 

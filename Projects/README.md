@@ -10,7 +10,7 @@ This directory will serve as a repository for all my upcoming projects. Each pro
 
 Here are some of the projects that will be available in the future:
 
-- **Project 1**: ReBuilding my Homelab
+- **Project 1**: ReBuilding my Homelab (Parts are in)
 - **Project 2**:
 - **Project 3**
 
