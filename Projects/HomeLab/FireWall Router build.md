@@ -55,3 +55,16 @@ you will see and address change it to what you need save the file and reboot I h
 <img src="/Projects/images/proxmoxhome.png">
 
 ![](proxmoxhome.png)
+
+---
+
+We now have a Working vmserver.
+
+Now its time to set up our first VM and this is going to be PFsense.
+
+First thing we need to do is get the ISO in to proxmox. there is 2 ways of doing this
+
+<img src="/Projects/images/isoupload.png">
+![](isoupload.png)
+
+You can click on the button for download from URL and paste in a link. or since i downloaded mine already i will click on upload
