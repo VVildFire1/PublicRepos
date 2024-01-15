@@ -67,4 +67,43 @@ First thing we need to do is get the ISO in to proxmox. there is 2 ways of doing
 <img src="/Projects/images/isoupload.png">
 ![](isoupload.png)
 
-You can click on the button for download from URL and paste in a link. or since i downloaded mine already i will click on upload
+You can click on the button for download from URL and paste in a link. or since i downloaded mine already i will click on upload (I had to unzip mine before uploading)
+https://www.pfsense.org/
+
+the next Step will be to click on CreateVM on the top right
+
+
+<img src="/Projects/images/cvm.png">
+![](cvm.png)
+here I name  my VM and you would tell the VM if it is to start at boot. I will be doing that part later after I make some changes
+
+
+
+<img src="/Projects/images/vmos.png">
+![](vmos.png)
+
+This is where we pick the ISO image
+
+under system I made no changes
+under Disk I give it 25GB I know this is more then needed but I have the space on this system you need to give it at least 16 from that I have been told.
+When it comes to CPUs and ram you can look here and see what Hardware there routers come with https://www.pfsense.org/products/  and the Recommended is	CPU - 1 Ghz RAM - 1 GB but i got this system with a lot more then that so I will be giving mine 2 cores (I have 8 on this and this is not going to be my main VM machine any way and 4GB of my 32gb of Ram)
+
+
+
+<img src="/Projects/images/vmnw.png">
+![](vmnw.png)
+
+Here we need to make a Change and click the box for No network device. this is something we will be doing later since this machine has 4 and we will need to make a Wan port
+then next and Finish
+
+it is now making our machine and getting it ready for our first boot
+
+
+---
+Coming back after making sure it works
+BUT WAIT
+
+remember we said no network? its time to set that up in proxmox
+
+---
+
