@@ -100,10 +100,98 @@ it is now making our machine and getting it ready for our first boot
 
 
 ---
-Coming back after making sure it works
 BUT WAIT
 
 remember we said no network? its time to set that up in proxmox
 
+We want to passthrough the Nic to the VM so it has direct control over them. this will lower the latency and make it run better. this will also make it so no other VMs can use them.  This is a long process, we will be editing files in linux for this. There are other ways to do this and if you find an easier way let me know
+
+we are going to open a shell in Proxmox   by clicking on shell under our main node
+
+then
+
+```shell
+nano /etc/default/grub
+```
+
+<img src="/Projects/images/nanogrub.png">
+![](nanogrub.png)
+
+we will be adding a line under the Grubs
+
+for intel
+```shell
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"
+```
+
+for AMD
+```shell
+GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on"
+```
+
+now save your file
+
+side note if you add iommu=pt in the line it should improve PCIe ports
+
+```shell
+GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt"
+```
+
+after doing this I like to open the file again just to make sure my changes saved
+
+now you need to update your Grub file
+
+```shell
+update-grub
+```
+
+this will update a few lines
+
+net edit
+
+```shell
+nano /etc/modules
+```
+
+
+<img src="/Projects/images/mods.png">
+![](mods.png)
+
+here and the end you will add the following
+
+```shell
+vfio
+vfio_iommu_type1
+vfio_pci
+vfio_virqfd
+```
+
+save and open to make sure your changes took
+then reboot your system
+
+Good news that's it for that part now we can add it to the VM
+
 ---
 
+# Adding the network cards to the VM
+
+ok now we want to click on out VM from the list and then Hardware. there should be a button that says Add>PCI Device.
+
+<img src="/Projects/images/addpci.png">
+![](addpci.png)
+
+
+before I was getting a error at the top that would say no iommu if it is still there you should go back and make sure you did the edits.
+
+now you will click on Raw device and all Functions then select all the network cards you want to pass I have 4 and i need to leave 1 for the proxmox. after repeating for the 3 i want I am going to my VM and starting it it. becarefull not to pick the Nic that proxmox is useing this will be based on your own system. I guessed since i am useing port 0 that i will use 1,2 and 3
+
+
+---
+
+# Booting up pfSense
+
+if evething has been good so far when you goto start your VM it should boot in to the set up of pfSense
+
+
+<img src="/Projects/images/pfsinstall.png">
+![](pfsinstall.png)
