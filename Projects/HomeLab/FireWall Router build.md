@@ -1,56 +1,69 @@
-Ok so my Hard ware has arrived
+# Homelab Setup Guide
 
+Welcome to my step-by-step guide for setting up my Homelab with Proxmox VE and high-performance hardware.
 
-MOGINSOK 4x 2.5GbE Mini PC [[Amazon Link](https://amzn.to/4aKXqXf)] - Features a 12th Gen Intel Core i3 N305 processor (up to 3.4GHz and 8 Cores) I got the barebones
+## Hardware Arrival
 
-Timetec 32GB DDR5 4800MHz [[Amazon Link](https://amzn.to/48tV9y7)] 
+My new hardware has arrived and it's time to get everything set up:
 
-PNY CS1030 1TB M.2 NVMe PCIe Gen3 x4 Internal Solid State Drive (SSD) [[Amazon Link](https://amzn.to/3HeBu9C)]
+- **MOGINSOK 4x 2.5GbE Mini PC**:
+  - 12th Gen Intel Core i3 N305 processor (up to 3.4GHz and 8 Cores). Opted for the barebones version.
+  - [Amazon Link](https://amzn.to/4aKXqXf)
 
-First thing I need to do is install the Ram and the SSD. This item is a lot smaller then I thought but that's a good thing. Ram fits no problem and there is 2 M.2 ports. Might upgrade and add a 2nd SSD later not sure right now. 
+- **Timetec 32GB DDR5 4800MHz RAM**:
+  - [Amazon Link](https://amzn.to/48tV9y7)
 
-Downloading ProxMox Virtual Environment this is going to be my main boot OS
-https://www.proxmox.com/en/
+- **PNY CS1030 1TB M.2 NVMe PCIe Gen3 x4 SSD**:
+  - [Amazon Link](https://amzn.to/3HeBu9C)
 
-After Downloading this i will need to write the iso to a Flashdrive the image is under 2 GB so thats not to hard.
+### Initial Setup
 
-To do this i will be using Rufus https://rufus.ie/en/ I have been useing this program for awhile for my Pi and other things and it is easy
+The first step involves installing the RAM, which fits seamlessly into the slots, and the SSD into one of the two available M.2 ports. The compact size of the Mini PC is a plus for space management. Considering a future upgrade with an additional SSD.
 
+## Software Preparation
 
-# Making the Boot loader
+Downloading and setting up Proxmox Virtual Environment as the main operating system.
 
-Step 1. Make sure the USB I am going to flash in Blank or i dont need the data on it.
+- Download Proxmox VE: [Proxmox Download](https://www.proxmox.com/en/)
 
-Step 2. click select on Rufus and find your ISO. 
+### Creating a Bootable Flash Drive
 
-Step 3. Make sure the Device is set to your Flash drive and click start.
+To write the Proxmox image to a USB flash drive, I'm using Rufus:
 
-wow that was so hard. any way now we just wait for the drive to be completed it might say that the drive is unreadable at this time but that's normal for windows
+- Rufus: [Download Rufus](https://rufus.ie/en/)
 
-# Installing Proxmox
+#### Making the Bootloader
 
-The next steps will be getting the system up and running. I plan to run this headless (no screen keyboard etc) but for now i connect it to a screen keyboard mouse and cat5 then the USB and press the power button
+1. Ensure the USB drive is empty or that no required data is on it.
+2. Open Rufus, click 'Select' and locate the Proxmox ISO file.
+3. Confirm the device is the intended flash drive and press 'Start'.
 
-Step 1. Booting the device moves the the proxmox Installer and asked how to install I pick the first one for GUI install. 
+Note: During this process, it's normal for Windows to report the drive as unreadable.
 
-Step 2. Answer the questions for your Timezone  and then it will ask you for a Email and Password. this is where it will send msg if there is a problem with you server if you set that up later.
+## Installing Proxmox
 
-Step 3. now it will ask for your network info for now I will use just my old info since once this is up and running I will be seeting up new IPs and a FSDN for my self. if you are noot sure what to put in use somthing like proxmox.home.arpa
+### Steps for Installation
 
-Step 4. It will give you a summery to make sure everting is good then you can click install with the check mark to reboot after install
+1. Boot from the USB, and when prompted by the Proxmox installer, select the GUI install option.
+2. Set your timezone, and provide an email and password for server alerts.
+3. For the network setup, temporarily use existing network details. Post-setup, IP addresses and FQDNs will be configured.
+   - If unsure, you can use a placeholder like `proxmox.home.arpa`.
+4. Review the summary, confirm the settings, and proceed with the installation.
+5. Post-install, access the Proxmox interface via the web browser at the IP set during installation on port `8006`.
 
-Step 5. if evething worked ok you should be able to to open your web browser to the IP that you put in. or it will show up on the command. on port 8006
+### Troubleshooting
 
-Troubleshooting 
-If you picked an IP that is already used or need to change it follow this
+If there's an IP conflict or a need to change network settings:
 
-Log in with root and the password you gave it then do the following
+1. Log in as `root` using the password set during installation.
+2. Open the network configuration file:
 
-```
-nano /etc/network/interfaces
-```
+    ```bash
+    nano /etc/network/interfaces
+    ```
 
-you will see and address change it to what you need save the file and reboot I had to do this
+3. Modify the IP address as needed, save the file, and reboot the system.
+
 
 <img src="/Projects/images/proxmoxhome.png">
 
@@ -58,140 +71,333 @@ you will see and address change it to what you need save the file and reboot I h
 
 ---
 
-We now have a Working vmserver.
 
-Now its time to set up our first VM and this is going to be PFsense.
+# Setting Up PFsense as the First VM on Proxmox
 
-First thing we need to do is get the ISO in to proxmox. there is 2 ways of doing this
+Having a functional VM server, it's time to set up PFsense as our first Virtual Machine.
+
+## Uploading PFsense ISO to Proxmox
+
+There are two ways to get the PFsense ISO into Proxmox:
+
+1. **Downloading Directly via URL**:
+   - You can use Proxmox's feature to download the ISO directly from a URL.
 
 <img src="/Projects/images/isoupload.png">
 ![](isoupload.png)
 
-You can click on the button for download from URL and paste in a link. or since i downloaded mine already i will click on upload (I had to unzip mine before uploading)
-https://www.pfsense.org/
+2. **Uploading a Downloaded ISO**:
+   - Alternatively, if you have already downloaded the ISO, you can upload it to Proxmox.
+   - Ensure to unzip the ISO file before uploading.
+   - Download PFsense from [pfsense.org](https://www.pfsense.org/).
 
-the next Step will be to click on CreateVM on the top right
+
+## Creating the PFsense VM
+
+To create the PFsense VM, follow these steps:
+
+1. **Initiate VM Creation**:
+   - Click on `Create VM` in the top right corner of the Proxmox interface.
 
 
 <img src="/Projects/images/cvm.png">
 ![](cvm.png)
-here I name  my VM and you would tell the VM if it is to start at boot. I will be doing that part later after I make some changes
+- Name your VM and decide whether it should start at boot. I'll configure the auto-start later after making some adjustments.
+
+2. **Selecting the ISO Image**:
+   - Choose the PFsense ISO image you uploaded.
 
 
 
 <img src="/Projects/images/vmos.png">
 ![](vmos.png)
 
-This is where we pick the ISO image
+3. **Configuring VM Resources**:
+   - Under 'Disk', allocate 25GB of storage (though 16GB should be sufficient).
+   - Based on PFsense's [hardware requirements](https://www.pfsense.org/products/), the minimum is 1 GHz CPU and 1 GB RAM. However, I'm assigning 2 CPU cores and 4GB RAM considering the capacity of my system.
 
-under system I made no changes
-under Disk I give it 25GB I know this is more then needed but I have the space on this system you need to give it at least 16 from that I have been told.
-When it comes to CPUs and ram you can look here and see what Hardware there routers come with https://www.pfsense.org/products/  and the Recommended is	CPU - 1 Ghz RAM - 1 GB but i got this system with a lot more then that so I will be giving mine 2 cores (I have 8 on this and this is not going to be my main VM machine any way and 4GB of my 32gb of Ram)
+4. **Network Configuration**:
+   - Choose 'No network device' for now, as we will configure the network interfaces later, especially for WAN and LAN setups.
 
 
 
 <img src="/Projects/images/vmnw.png">
 ![](vmnw.png)
 
-Here we need to make a Change and click the box for No network device. this is something we will be doing later since this machine has 4 and we will need to make a Wan port
-then next and Finish
+5. **Finalize and Create VM**:
+   - Complete the setup and click `Finish`. Proxmox will prepare the VM for the first boot.
 
-it is now making our machine and getting it ready for our first boot
+After the VM is set up, the next steps will involve booting PFsense for the first time, going through its installation process, and configuring network interfaces and firewall settings.
 
 
 ---
-BUT WAIT
 
-remember we said no network? its time to set that up in proxmox
+## Network Configuration for PFsense VM in Proxmox
 
-We want to passthrough the Nic to the VM so it has direct control over them. this will lower the latency and make it run better. this will also make it so no other VMs can use them.  This is a long process, we will be editing files in linux for this. There are other ways to do this and if you find an easier way let me know
+After initially setting up the PFsense VM without a network, it's now time to configure the network interfaces.
 
-we are going to open a shell in Proxmox   by clicking on shell under our main node
+### NIC Passthrough
 
-then
+We aim to pass through the Network Interface Card (NIC) directly to the VM. This setup gives PFsense direct control over the NICs, reduces latency, and ensures that these NICs are exclusively used by PFsense.
 
-```shell
-nano /etc/default/grub
-```
+#### Why NIC Passthrough?
+
+- **Lower Latency**: Direct control over the hardware results in better performance.
+- **Exclusive Access**: Ensures that no other VMs share these NICs, which is critical for a router/firewall setup.
+
+#### Steps to Configure NIC Passthrough
+
+1. **Access the Shell in Proxmox**:
+   - Open a shell session in Proxmox by clicking on the `Shell` option under your main node.
+
+2. **Edit the GRUB Configuration**:
+   - We need to modify the GRUB bootloader configuration to enable IOMMU, which is necessary for passthrough.
+   - Use the `nano` editor to open the GRUB configuration file:
+
+     ```shell
+     nano /etc/default/grub
+     ```
+
 
 <img src="/Projects/images/nanogrub.png">
 ![](nanogrub.png)
 
-we will be adding a line under the Grubs
+   - Add the following parameters to the GRUB_CMDLINE_LINUX_DEFAULT line:
+     ```
+     intel_iommu=on
+     ```
+     Replace `intel_iommu=on` with `amd_iommu=on` if you're using an AMD processor.
 
-for intel
+3. **Update GRUB and Reboot**:
+   - After saving the changes, update GRUB and reboot your Proxmox server:
+
+     ```shell
+     update-grub
+     reboot
+     ```
+
+
+## Additional Note on IOMMU Settings for PCIe Passthrough
+
+### Improving PCIe Passthrough Performance
+
+When configuring NIC passthrough in Proxmox for the PFsense VM, adding `iommu=pt` to the GRUB configuration line can enhance the performance of PCIe ports. This setting optimizes the Input/Output Memory Management Unit (IOMMU) for passthrough devices.
+
+
 ```shell
-GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on"
-```
 
-for AMD
-```shell
-GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on"
-```
-
-now save your file
-
-side note if you add iommu=pt in the line it should improve PCIe ports
-
-```shell
 GRUB_CMDLINE_LINUX_DEFAULT="quiet intel_iommu=on iommu=pt"
 ```
+     
+   - For AMD processors, it would be:
+
+```shell
+GRUB_CMDLINE_LINUX_DEFAULT="quiet amd_iommu=on iommu=pt"
+```
+
+### Why `iommu=pt`?
+
+- **Improved Performance**: The `iommu=pt` (passthrough) option can reduce overhead and improve the efficiency of PCIe passthrough devices.
+- **Stability**: It can also contribute to the stability of the VMs using the passthrough devices, especially under heavy I/O loads.
+
+By adding this option, you're ensuring that your setup is not only functionally correct but also optimized for the best possible performance with your hardware.
 
 after doing this I like to open the file again just to make sure my changes saved
 
-now you need to update your Grub file
 
-```shell
-update-grub
-```
+### Finalizing IOMMU Settings for NIC Passthrough
 
-this will update a few lines
+With the GRUB configuration updated, the next step involves ensuring the necessary VFIO modules are loaded for successful NIC passthrough.
 
-net edit
+#### Loading VFIO Modules
 
-```shell
-nano /etc/modules
-```
+1. **Add VFIO Modules**:
+   - After modifying the GRUB configuration, you need to specify the VFIO modules to be loaded at boot. This is done by editing another configuration file.
+   - Open the modules file:
+
+     ```shell
+     nano /etc/modules
+     ```
 
 
 <img src="/Projects/images/mods.png">
 ![](mods.png)
 
-here and the end you will add the following
+   - Add the following lines at the end of the file:
 
-```shell
-vfio
-vfio_iommu_type1
-vfio_pci
-vfio_virqfd
-```
+     ```shell
+     vfio
+     vfio_iommu_type1
+     vfio_pci
+     vfio_virqfd
+     ```
 
-save and open to make sure your changes took
-then reboot your system
+   - These modules are responsible for facilitating the passthrough of PCIe devices like NICs to your VMs.
 
-Good news that's it for that part now we can add it to the VM
+2. **Verify and Reboot**:
+   - After saving the file, it's a good practice to reopen it to confirm that your changes were correctly saved.
+   - Once verified, reboot your Proxmox system to apply these changes:
+
+     ```shell
+     reboot
+     ```
+
+### Considerations and Troubleshooting
+
+- This process can be complex and may vary based on your specific hardware and Proxmox version.
+- If you encounter issues, verify that IOMMU is enabled in your BIOS/UEFI settings.
+- Remember, once a NIC is passed through to a VM, it cannot be used by the Proxmox host or other VMs.
+
+By completing these steps, your PFsense VM will have direct control over the specified network interfaces, optimizing its performance as a router/firewall.
+
 
 ---
 
-# Adding the network cards to the VM
 
-ok now we want to click on out VM from the list and then Hardware. there should be a button that says Add>PCI Device.
+## Verifying IOMMU Settings and NIC Passthrough Configuration
+
+After rebooting, it's essential to ensure that the IOMMU settings are correctly enabled and functioning.
+
+### Confirming IOMMU Activation
+
+1. **Check for IOMMU Error Messages**:
+   - Upon rebooting, look out for any error messages related to IOMMU, such as 'no iommu detected.'
+   - If you still see an error message, revisit the previous steps to ensure all edits to the GRUB configuration and module settings are correct.
+
+### Setting Up NIC Passthrough in Proxmox
+
+Now that IOMMU is verified, it's time to pass the network interfaces through to the PFsense VM.
+
+1. **Selecting NICs for Passthrough**:
+   - Navigate to the Proxmox web interface and go to your PFsense VM's hardware configuration.
+   - Click on `Add` and choose `PCI Device`.
+   - Select `Raw device` and `All Functions`, then choose the NICs for passthrough.
 
 <img src="/Projects/images/addpci.png">
 ![](addpci.png)
 
 
-before I was getting a error at the top that would say no iommu if it is still there you should go back and make sure you did the edits.
+2. **Avoiding Proxmox's Active NIC**:
+   - Be cautious not to include the NIC currently used by Proxmox itself.
+   - In my case, since Proxmox is using port 0, I will pass through NICs on ports 1, 2, and 3.
 
-now you will click on Raw device and all Functions then select all the network cards you want to pass I have 4 and i need to leave 1 for the proxmox. after repeating for the 3 i want I am going to my VM and starting it it. becarefull not to pick the Nic that proxmox is useing this will be based on your own system. I guessed since i am useing port 0 that i will use 1,2 and 3
+3. **Applying Changes to VM**:
+   - After selecting the NICs, save your changes and start your PFsense VM.
 
+### Post-Configuration Steps
+
+- **Boot PFsense VM**:
+  - Once you start the VM, PFsense should recognize the passed-through NICs and utilize them for its network configurations.
+  
+- **Troubleshooting**:
+  - If your Proxmox host loses network connectivity or if the PFsense VM doesn't recognize the NICs, double-check the port numbers and ensure the correct NICs are being passed through.
+
+By following these steps, you've successfully allocated dedicated NICs to your PFsense VM, optimizing your Homelab's network setup. This configuration allows PFsense to manage these interfaces directly, enhancing performance and security.
+
+Congratulations, you've successfully configured NIC passthrough for your PFsense VM! This setup will ensure dedicated and optimized network performance for your Homelab's router/firewall.
 
 ---
 
-# Booting up pfSense
+# Booting up pfSense and Initial Setup
 
-if evething has been good so far when you goto start your VM it should boot in to the set up of pfSense
+With the VM and network interfaces properly configured, it's time to boot up pfSense and begin the initial setup process.
+
+## Starting pfSense Installation
+
+When you start your VM, it should boot into the pfSense setup:
 
 
 <img src="/Projects/images/pfsinstall.png">
 ![](pfsinstall.png)
+
+Follow the on-screen instructions, which will mostly involve clicking 'Next'. 
+
+## Choosing File System
+
+- I opted for the Auto ZFS Guided setup. You might see a warning about having less than 8GB of RAM, but for our purposes, this isn't a concern as we're not using it as a full-fledged NAS.
+
+## Disk Configuration
+
+- During the ZFS configuration, select your drive for installation. In my case, there's only one, so I select it.
+- Confirm to overwrite (destroy) the existing data on the drive, as it's just the VM drive.
+- After completing the drive setup, the system will ask to reboot.
+
+## Network Configuration
+
+- Upon reboot, you'll be prompted to set up VLANs. I chose 'No' for now, as this can be done later through the GUI.
+- Next, it asks for a WAN interface. You can let pfSense auto-detect or choose one. This can be changed later if necessary.
+- pfSense will then display the address of your router.
+
+## IP Configuration
+
+- You might face a decision here: create a new network or disconnect and proceed with the existing setup. 
+- I'm assigning a new IP to my LAN interface using option 2 since my system isn’t connected to WAN yet.
+- Set your router to a static IP and define your subnet (CIDR). For most home networks, `/24` is standard.
+- Skip the gateway setting for now, as the pfSense will act as the gateway.
+- I chose to disable IPv6 at this point and set up the DHCP range for the LAN.
+
+## Finalizing the Setup
+
+- Opt to keep HTTPS for the web configuration.
+- Upon connecting, I receive an IP address and can access the pfSense web interface using the set IP.
+- Now, I disconnect the network cable from my old router and connect it to the new pfSense system. 
+
+**Note on Network Transition to pfSense**:
+At this stage, I took a significant step in transitioning my network connection from the old router to the new pfSense setup. After plugging the network cable into the pfSense device, it promptly assigned an IP address to my system, allowing me to access the pfSense web interface via the new IP configuration. This successful connection was a gratifying moment, marking a smooth start with the new setup.
+
+### Additional Network Setup Considerations
+
+- **WAN Connection**: If you're ready, you can now disconnect your old router and connect your WAN directly to the new pfSense device. In my case, I held off on this step temporarily because the existing internet connection was still in use by others in my home.
+
+- **Converting Old Router to WiFi Access Point**: My next move involves bridging the old router to serve as a WiFi access point. This transition will ensure continuous wireless network availability throughout this changeover.
+
+- **Dual NIC Configuration on Main PC**: Since my main PC is equipped with two network interfaces (NICs), I connected one to the pfSense system and left the other connected to my existing router. This setup allows me continuous web access during the transition phase and helps in parallel testing and configuration of the new network setup.
+
+you Defalt info
+
+	Username: admin
+	Password: pfsense
+
+
+## Default Login Credentials
+
+- Username: `admin`
+- Password: `pfsense`
+
+## Additional Security Measures
+
+For extra security, consider changing the default admin password immediately. You can also create a new user, add them to the admin group, log out, log in as the new user, and disable the default 'admin' account. This adds an extra layer of security, making it more challenging for unauthorized access.
+
+
+---
+
+# pfSense GUI Setup
+
+After the initial installation and network configuration of pfSense, the next phase involves setting up and customizing the pfSense GUI (Graphical User Interface).
+
+## Quick Start Guide
+
+Upon your first login to the pfSense web interface, you'll typically be greeted with a Quick Start guide. This guide is designed to help you through the basic configuration steps necessary to get your router up and running. 
+
+### Bypassing Quick Start with Hardened Setup
+
+In my case, since I had already performed some advanced configurations and hardening during the installation process, I bypassed the Quick Start guide. This allowed me immediate full control over the router's settings. 
+
+Here's what you need to know about proceeding directly to the main interface:
+
+- **Direct Access to Settings**: Bypassing the Quick Start takes you straight to the main dashboard of pfSense, where you can access all settings and features.
+- **Custom Configuration**: You have the flexibility to customize and configure all aspects of pfSense according to your specific needs, without the guided steps.
+- **Advanced Features**: For users who are familiar with pfSense or have specific requirements, skipping the Quick Start allows immediate access to advanced features.
+
+## Next Steps
+
+Now that you have access to the full pfSense interface, you can start configuring various aspects of your network:
+
+- **Firewall Rules**: Set up rules to manage incoming and outgoing network traffic.
+- **VPN Setup**: Configure VPN services for secure remote access.
+- **Network Services**: Adjust settings for DHCP, DNS, and other network services.
+- **Monitoring and Maintenance**: Utilize the monitoring tools and schedule regular maintenance tasks.
+
+As you familiarize yourself with the pfSense interface, you'll find a wide range of tools and options to optimize your network's performance and security.
+
+
