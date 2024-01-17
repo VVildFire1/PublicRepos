@@ -107,3 +107,11 @@ Pi-hole is now set up and ready to block ads and manage DNS queries in your netw
 Remember, while configuring Pi-hole with pfSense, it's important to consider the implications of DNS settings on your network's performance and security. Always have a backup plan in case you need to revert changes, and document any configurations you modify for future reference
 
 
+### Use Pi-hole's Local DNS Records Feature
+
+Pi-hole's web interface includes a section for defining local DNS records. Here's how to use it:
+
+- Access the Pi-hole Admin Console in your web browser.
+- Navigate to the "Local DNS" tab and then to "DNS Records."
+- Here, you can add mappings between local IP addresses and hostnames. For instance, you might map `192.168.1.50` to `printer.local`.
+- After adding your mappings, Pi-hole will start resolving these names to the specified IP addresses for all devices using it for DNS.
