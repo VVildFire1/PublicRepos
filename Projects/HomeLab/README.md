@@ -27,7 +27,7 @@ For software, I plan to run the following:
 - Jellyfin for media serving.
 - Audiobookshelf for organizing and listening to audiobooks.
 - Kasm Workspacesor network security app streaming etc.
-- Pihole DNS server for managing local domain resolutions.
+- Pihole DNS server for managing local domain resolutions. --Complete
 - NAS setup using FreeNAS for storage solutions.
 - Email server for personal mail hosting.
 - Webserver for hosting websites.
