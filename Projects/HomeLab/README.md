@@ -22,12 +22,12 @@ Other hardware options considered:
 
 For software, I plan to run the following:
 
-- Proxmox VE - Virtual Environment Platform
-- PFsense as my main router software.
+- Proxmox VE - Virtual Environment Platform    --Complete
+- PFsense as my main router software. --Complete
 - Jellyfin for media serving.
 - Audiobookshelf for organizing and listening to audiobooks.
 - Kasm Workspacesor network security app streaming etc.
-- DNS server for managing local domain resolutions.
+- Pihole DNS server for managing local domain resolutions.
 - NAS setup using FreeNAS for storage solutions.
 - Email server for personal mail hosting.
 - Webserver for hosting websites.
