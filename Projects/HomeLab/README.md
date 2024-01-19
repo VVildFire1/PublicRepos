@@ -24,11 +24,11 @@ For software, I plan to run the following:
 
 - Proxmox VE - Virtual Environment Platform    --Complete
 - PFsense as my main router software. --Complete
-- Jellyfin for media serving.
-- Audiobookshelf for organizing and listening to audiobooks.
+- Jellyfin for media serving.(parts on order)
+- Audiobookshelf for organizing and listening to audiobooks.(parts on order)
 - Kasm Workspacesor network security app streaming etc.
 - Pihole DNS server for managing local domain resolutions. --Complete
-- NAS setup using FreeNAS for storage solutions.
+- NAS setup using FreeNAS for storage solutions. (parts on order)
 - Email server for personal mail hosting.
 - Webserver for hosting websites.
 - Jumpbox as a secure entry point into a remote network.
