@@ -11,8 +11,8 @@ This directory will serve as a repository for all my upcoming projects. Each pro
 Here are some of the projects that will be available in the future:
 
 - **Project 1**: ReBuilding my Homelab (Parts are in See homelab folder)
-- **Project 2**:
-- **Project 3**
+- **Project 2**: DIY Rack (Lack Rack) + VM server (# PowerEdge Dell R630 Server https://amzn.to/3UkhCtr )
+- **Project 3** Home NAS
 
 
 ## Stay Tuned
