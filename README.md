@@ -6,7 +6,7 @@ Hello there! I'm WildFire, and this is my personal repository where I share proj
 
 - **Projects**: A collection of my individual and collaborative projects. Check out the [Projects Directory](/Projects) for more details.
 - **Ethical Hacker Playbook**: My notes, write-ups, and methodologies for ethical hacking are compiled in my "PlayBook". You can find it in the [PlayBook Directory](/PlayBook).
-
+- **WGU Masters**: Notes I am taking while working on my masters. This will be a random collection of anything I may need to go back to, even if I think I know it. most of this will be RAW and unorganized but hey might find something new in here.
 ## About Me
 
 I'm a technology enthusiast with a passion for learning and building. My interests include ethical hacking, cybersecurity, and creating solutions to challenging problems.
