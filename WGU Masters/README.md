@@ -1,6 +1,3 @@
-
-  
-
 # WGU Masters Notes
 
 ## Overview

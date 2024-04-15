@@ -1,4 +1,6 @@
 
+# OSI
+
 | Layer | Name         | Function                                                                                       |
 | ----- | ------------ | ---------------------------------------------------------------------------------------------- |
 | 7     | Application  | Provides network services directly to applications.                                            |
@@ -41,3 +43,20 @@
    - Enables end-user software to communicate with other software.
    - Provides network services to the applications.
    - Examples include web browsers, email clients, and various types of servers.
+
+
+# Rj45  pin layout
+
+
+| Pin Number | T568A Wiring (Straight-Through) | T568B Wiring (Straight-Through) | Crossover Cable (T568A to T568B) |
+|------------|---------------------------------|---------------------------------|----------------------------------|
+| 1          | Green/White                     | Orange/White                    | Orange/White                     |
+| 2          | Green                           | Orange                          | Orange                           |
+| 3          | Orange/White                    | Green/White                     | Green/White                      |
+| 4          | Blue                            | Blue                            | Blue                             |
+| 5          | Blue/White                      | Blue/White                      | Blue/White                       |
+| 6          | Orange                          | Green                           | Green                            |
+| 7          | Brown/White                     | Brown/White                     | Brown/White                      |
+| 8          | Brown                           | Brown                           | Brown                            |
+
+
