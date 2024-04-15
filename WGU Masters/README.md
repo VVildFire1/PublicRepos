@@ -25,7 +25,7 @@ As a living document, the organization of this folder might start as unstructure
 
 Please note:
 - **Raw and Unorganized**: Most of the content will be raw and unorganized, reflecting real-time learning and note-taking.
-- **Personal Use**: These notes are primarily for my personal use and may not always follow a structured or standardized format.
+- **Personal Use**: These notes are primarily for my personal use and may not always follow a structured or standardized format Chat GPT is used to help me keep things cleaner.
 - **Discoveries**: Amidst the chaos, there might be insightful discoveries and useful nuggets of information—keep an eye out for these!
 
 ## Contribution

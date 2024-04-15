@@ -63,7 +63,7 @@
 
 #### Layer 2: Data Link Layer
 - **Function**: Provides node-to-node data transfer—a link between two directly connected nodes. It handles framing, error checking, flow control, and MAC addressing.
-- **Data Unit**: Frames.
+- **Data Unit**: Frames. (MTU 1500Bytes max normal)
 - **Encapsulation Details**:
   - **Ethernet Frame Structure**: Typically includes MAC addresses (source and destination), an Ethernet type field (indicating the network layer protocol used), the payload (packet from Network Layer), and a frame check sequence (FCS) for error checking.
   - **Purpose**: Ensures that data frames are directed to the correct device on a LAN using physical addresses. It corrects errors that may have occurred at the physical layer.
